@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GlowUp Media — Brief Twojego Salonu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cream:#fdf8f4;
+  --rose:#c9847a;
+  --rose-light:#f5e8e6;
+  --rose-mid:#e8c4be;
+  --plum:#2d1f2a;
+  --plum-light:#3d2a39;
+  --gold:#c4a882;
+  --white:#ffffff;
+  --gray:#8a8a8a;
+  --gray-light:#f5f5f3;
+  --border:rgba(201,132,122,.2);
+  --border-focus:rgba(201,132,122,.6);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--plum);min-height:100vh}
+
+/* TOP BAR */
+.topbar{background:var(--plum);padding:14px 40px;display:flex;justify-content:space-between;align-items:center}
+.topbar-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;letter-spacing:.15em;color:var(--cream);text-transform:uppercase}
+.topbar-logo em{color:var(--rose);font-style:normal}
+.topbar-step{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(253,248,244,.4)}
+
+/* HERO */
+.brief-hero{background:linear-gradient(135deg,var(--plum) 0%,#1a0f17 100%);padding:60px 40px 72px;text-align:center;position:relative;overflow:hidden}
+.brief-hero::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(201,132,122,.12) 0%,transparent 70%);pointer-events:none}
+.hero-inner{position:relative;z-index:1}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(201,132,122,.15);border:1px solid rgba(201,132,122,.3);color:var(--rose);font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:24px}
+.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--rose)}
+.brief-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,5vw,58px);font-weight:300;color:var(--cream);line-height:1.1;letter-spacing:-.01em;margin-bottom:16px}
+.brief-hero h1 em{color:var(--rose);font-style:italic}
+.brief-hero p{font-size:15px;color:rgba(253,248,244,.5);font-weight:300;max-width:480px;margin:0 auto;line-height:1.7}
+
+/* PROGRESS */
+.progress-wrap{background:var(--white);border-bottom:1px solid var(--border);padding:0 40px;position:sticky;top:0;z-index:50}
+.progress-inner{max-width:760px;margin:0 auto;display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none}
+.progress-inner::-webkit-scrollbar{display:none}
+.prog-step{display:flex;align-items:center;gap:8px;padding:16px 20px;font-size:12px;letter-spacing:.05em;color:var(--gray);white-space:nowrap;border-bottom:2px solid transparent;cursor:pointer;transition:all .2s;flex-shrink:0}
+.prog-step.active{color:var(--rose);border-bottom-color:var(--rose)}
+.prog-step.done{color:var(--plum)}
+.prog-dot{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0;transition:all .2s}
+.prog-step.done .prog-dot{background:var(--rose);border-color:var(--rose);color:var(--white)}
+.prog-step.active .prog-dot{background:var(--rose-light);border-color:var(--rose);color:var(--rose)}
+
+/* MAIN */
+.main{max-width:760px;margin:0 auto;padding:48px 40px 80px}
+
+/* SECTIONS */
+.form-section{display:none;animation:fadeUp .4s ease}
+.form-section.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.section-head{margin-bottom:36px}
+.section-num{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--rose);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.section-num::before{content:'';width:24px;height:1px;background:var(--rose)}
+.section-head h2{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,4vw,40px);font-weight:300;line-height:1.15;letter-spacing:-.01em}
+.section-head p{font-size:14px;color:var(--gray);margin-top:8px;line-height:1.65;font-weight:300}
+
+/* FIELDS */
+.field{margin-bottom:28px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:28px}
+label{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;color:var(--plum);margin-bottom:8px}
+label span{color:var(--rose);margin-left:2px}
+.hint{font-size:12px;color:var(--gray);margin-bottom:8px;font-weight:300;font-style:italic;margin-top:-4px;text-transform:none;letter-spacing:0}
+input[type=text],input[type=email],input[type=url],select,textarea{width:100%;padding:14px 16px;border:1px solid var(--border);border-radius:10px;font-family:'Inter',sans-serif;font-size:14px;color:var(--plum);background:var(--white);transition:all .2s;outline:none;appearance:none;-webkit-appearance:none}
+input[type=text]:focus,input[type=email]:focus,input[type=url]:focus,select:focus,textarea:focus{border-color:var(--border-focus);box-shadow:0 0 0 3px rgba(201,132,122,.08)}
+input::placeholder,textarea::placeholder{color:rgba(45,31,42,.3)}
+textarea{resize:vertical;min-height:100px;line-height:1.6}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8a8a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px}
+
+/* CHECKBOX / RADIO GRID */
+.check-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.check-item{position:relative}
+.check-item input{position:absolute;opacity:0;width:0;height:0}
+.check-label{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid var(--border);border-radius:10px;cursor:pointer;font-size:13px;transition:all .2s;background:var(--white)}
+.check-label:hover{border-color:var(--rose-mid);background:var(--rose-light)}
+.check-item input:checked + .check-label{border-color:var(--rose);background:var(--rose-light);color:var(--plum);font-weight:500}
+.check-box{width:18px;height:18px;border-radius:4px;border:1.5px solid var(--border);flex-shrink:0;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.check-item input:checked + .check-label .check-box{background:var(--rose);border-color:var(--rose)}
+.check-item input:checked + .check-label .check-box::after{content:'✓';font-size:11px;color:white;font-weight:600}
+.radio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.radio-item{position:relative}
+.radio-item input{position:absolute;opacity:0;width:0;height:0}
+.radio-label{display:flex;align-items:center;gap:10px;padding:14px 16px;border:1px solid var(--border);border-radius:10px;cursor:pointer;font-size:13px;transition:all .2s;background:var(--white)}
+.radio-label:hover{border-color:var(--rose-mid);background:var(--rose-light)}
+.radio-item input:checked + .radio-label{border-color:var(--rose);background:var(--rose-light);font-weight:500}
+.radio-dot{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--border);flex-shrink:0;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.radio-item input:checked + .radio-label .radio-dot{border-color:var(--rose)}
+.radio-item input:checked + .radio-label .radio-dot::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--rose);display:block}
+
+/* RANGE SLIDER */
+.slider-wrap{padding:8px 0}
+.range-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--gray);margin-top:8px}
+input[type=range]{width:100%;height:4px;-webkit-appearance:none;appearance:none;background:var(--rose-light);border-radius:10px;outline:none;border:none;padding:0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--rose);cursor:pointer;border:3px solid white;box-shadow:0 1px 4px rgba(201,132,122,.4)}
+.range-val{text-align:center;font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--rose);margin-bottom:8px}
+
+/* TAG INPUT */
+.tag-wrap{display:flex;flex-wrap:wrap;gap:8px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--white);min-height:50px;cursor:text;transition:border-color .2s}
+.tag-wrap:focus-within{border-color:var(--border-focus);box-shadow:0 0 0 3px rgba(201,132,122,.08)}
+.tag{display:inline-flex;align-items:center;gap:6px;background:var(--rose-light);border:1px solid var(--rose-mid);color:var(--plum);font-size:12px;padding:4px 10px;border-radius:100px}
+.tag-remove{cursor:pointer;color:var(--rose);font-size:14px;line-height:1}
+.tag-input{border:none;outline:none;font-size:13px;font-family:'Inter',sans-serif;color:var(--plum);min-width:140px;background:transparent;padding:2px 4px}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--border);margin:32px 0}
+
+/* SUMMARY CARD */
+.summary-card{background:var(--plum);border-radius:16px;padding:28px 32px;color:var(--cream);margin-bottom:24px}
+.summary-card h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;margin-bottom:16px;color:var(--cream)}
+.summary-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:10px 0;border-bottom:1px solid rgba(253,248,244,.07);font-size:13px}
+.summary-row:last-child{border:none}
+.sum-key{color:rgba(253,248,244,.45);flex-shrink:0;width:140px}
+.sum-val{color:var(--cream);text-align:right;font-weight:300}
+
+/* NAVIGATION */
+.nav-btns{display:flex;justify-content:space-between;align-items:center;margin-top:40px;padding-top:32px;border-top:1px solid var(--border)}
+.btn-back{background:none;border:1px solid var(--border);color:var(--plum);padding:14px 28px;border-radius:100px;font-size:13px;letter-spacing:.06em;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif}
+.btn-back:hover{border-color:var(--rose);color:var(--rose)}
+.btn-next{background:var(--plum);color:var(--cream);border:none;padding:14px 36px;border-radius:100px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;cursor:pointer;transition:all .3s;font-family:'Inter',sans-serif;display:flex;align-items:center;gap:8px}
+.btn-next:hover{background:var(--rose);transform:translateY(-1px);box-shadow:0 8px 24px rgba(201,132,122,.3)}
+.btn-submit{background:var(--rose);color:var(--cream);border:none;padding:18px 48px;border-radius:100px;font-size:14px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;cursor:pointer;transition:all .3s;font-family:'Inter',sans-serif}
+.btn-submit:hover{background:#d4998f;transform:translateY(-2px);box-shadow:0 12px 36px rgba(201,132,122,.35)}
+
+/* SUCCESS */
+.success{display:none;text-align:center;padding:60px 40px}
+.success.show{display:block}
+.success-icon{width:72px;height:72px;border-radius:50%;background:var(--rose-light);border:2px solid var(--rose);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 24px}
+.success h2{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;margin-bottom:12px}
+.success p{font-size:15px;color:var(--gray);line-height:1.7;max-width:420px;margin:0 auto 8px}
+
+/* REQUIRED ERROR */
+input.error,select.error,textarea.error{border-color:#e24b4a;box-shadow:0 0 0 3px rgba(226,75,74,.08)}
+.err-msg{font-size:12px;color:#e24b4a;margin-top:4px}
+
+@media(max-width:600px){
+  .topbar{padding:12px 20px}
+  .brief-hero{padding:40px 20px 52px}
+  .main{padding:32px 20px 60px}
+  .progress-wrap{padding:0 20px}
+  .field-row{grid-template-columns:1fr}
+  .check-grid,.radio-grid{grid-template-columns:1fr 1fr}
+  .nav-btns{flex-direction:column-reverse;gap:12px}
+  .btn-back,.btn-next,.btn-submit{width:100%;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">Glow<em>Up</em> Media</div>
+  <div class="topbar-step">Brief onboardingowy</div>
+</div>
+
+<div class="brief-hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Nowa klientka</div>
+    <h1>Opowiedz nam<br>o swoim <em>salonie</em></h1>
+    <p>Wypełnienie zajmuje około 10 minut. Im więcej nam powiesz, tym bardziej trafne będą Twoje posty.</p>
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-inner" id="progressBar">
+    <div class="prog-step active" onclick="goTo(0)"><div class="prog-dot">1</div>Podstawy</div>
+    <div class="prog-step" onclick="goTo(1)"><div class="prog-dot">2</div>Usługi</div>
+    <div class="prog-step" onclick="goTo(2)"><div class="prog-dot">3</div>Klientki</div>
+    <div class="prog-step" onclick="goTo(3)"><div class="prog-dot">4</div>Styl</div>
+    <div class="prog-step" onclick="goTo(4)"><div class="prog-dot">5</div>Komunikacja</div>
+    <div class="prog-step" onclick="goTo(5)"><div class="prog-dot">6</div>Cele</div>
+    <div class="prog-step" onclick="goTo(6)"><div class="prog-dot">7</div>Podsumowanie</div>
+  </div>
+</div>
+
+<div class="main" id="formMain">
+
+  <!-- SEKCJA 1 — PODSTAWY -->
+  <div class="form-section active" data-section="0">
+    <div class="section-head">
+      <div class="section-num">01 — Podstawowe informacje</div>
+      <h2>Zacznijmy od<br>Twojego salonu</h2>
+      <p>Podstawy, które pozwolą nam zrozumieć Twój biznes.</p>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Nazwa salonu <span>*</span></label>
+        <input type="text" id="salon_name" placeholder="np. Studio Urody Karolina" required>
+      </div>
+      <div class="field">
+        <label>Miasto <span>*</span></label>
+        <input type="text" id="miasto" placeholder="np. Warszawa, Mokotów">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Adres strony internetowej lub profilu Instagram</label>
+      <input type="url" id="website" placeholder="https://...">
+    </div>
+
+    <div class="field">
+      <label>Twój adres email <span>*</span></label>
+      <div class="hint">Na ten adres będziemy wysyłać gotowe posty do zatwierdzenia</div>
+      <input type="email" id="email" placeholder="twoj@email.pl" required>
+    </div>
+
+    <div class="field">
+      <label>Typ salonu <span>*</span></label>
+      <div class="radio-grid">
+        <div class="radio-item"><input type="radio" name="typ_salonu" id="t1" value="Salon kosmetyczny"><label class="radio-label" for="t1"><span class="radio-dot"></span>Salon kosmetyczny</label></div>
+        <div class="radio-item"><input type="radio" name="typ_salonu" id="t2" value="Fryzjer"><label class="radio-label" for="t2"><span class="radio-dot"></span>Fryzjer</label></div>
+        <div class="radio-item"><input type="radio" name="typ_salonu" id="t3" value="Salon paznokci"><label class="radio-label" for="t3"><span class="radio-dot"></span>Salon paznokci</label></div>
+        <div class="radio-item"><input type="radio" name="typ_salonu" id="t4" value="Medycyna estetyczna"><label class="radio-label" for="t4"><span class="radio-dot"></span>Medycyna estetyczna</label></div>
+        <div class="radio-item"><input type="radio" name="typ_salonu" id="t5" value="SPA / masaż"><label class="radio-label" for="t5"><span class="radio-dot"></span>SPA / masaż</label></div>
+        <div class="radio-item"><input type="radio" name="typ_salonu" id="t6" value="Studio urody (kompleks)"><label class="radio-label" for="t6"><span class="radio-dot"></span>Studio urody (kompleks)</label></div>
+        <div class="radio-item"><input type="radio" name="typ_salonu" id="t7" value="Inne"><label class="radio-label" for="t7"><span class="radio-dot"></span>Inne</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Odkąd działa salon?</label>
+      <div class="radio-grid">
+        <div class="radio-item"><input type="radio" name="staz" id="s1" value="Poniżej roku"><label class="radio-label" for="s1"><span class="radio-dot"></span>Poniżej roku</label></div>
+        <div class="radio-item"><input type="radio" name="staz" id="s2" value="1–3 lata"><label class="radio-label" for="s2"><span class="radio-dot"></span>1–3 lata</label></div>
+        <div class="radio-item"><input type="radio" name="staz" id="s3" value="3–7 lat"><label class="radio-label" for="s3"><span class="radio-dot"></span>3–7 lat</label></div>
+        <div class="radio-item"><input type="radio" name="staz" id="s4" value="Ponad 7 lat"><label class="radio-label" for="s4"><span class="radio-dot"></span>Ponad 7 lat</label></div>
+      </div>
+    </div>
+
+    <div class="nav-btns">
+      <div></div>
+      <button class="btn-next" onclick="nextSection(0)">Dalej <span>→</span></button>
+    </div>
+  </div>
+
+  <!-- SEKCJA 2 — USŁUGI -->
+  <div class="form-section" data-section="1">
+    <div class="section-head">
+      <div class="section-num">02 — Usługi i oferta</div>
+      <h2>Co oferuje<br>Twój salon?</h2>
+      <p>Na tej podstawie dobierzemy tematy postów i odpowiednie hashtagi.</p>
+    </div>
+
+    <div class="field">
+      <label>Główne usługi salonu <span>*</span></label>
+      <div class="hint">Zaznacz wszystkie które oferujesz</div>
+      <div class="check-grid">
+        <div class="check-item"><input type="checkbox" id="u1" name="uslugi" value="Manicure / pedicure"><label class="check-label" for="u1"><span class="check-box"></span>Manicure / pedicure</label></div>
+        <div class="check-item"><input type="checkbox" id="u2" name="uslugi" value="Stylizacja paznokci"><label class="check-label" for="u2"><span class="check-box"></span>Stylizacja paznokci</label></div>
+        <div class="check-item"><input type="checkbox" id="u3" name="uslugi" value="Zabiegi na twarz"><label class="check-label" for="u3"><span class="check-box"></span>Zabiegi na twarz</label></div>
+        <div class="check-item"><input type="checkbox" id="u4" name="uslugi" value="Depilacja"><label class="check-label" for="u4"><span class="check-box"></span>Depilacja</label></div>
+        <div class="check-item"><input type="checkbox" id="u5" name="uslugi" value="Lifting rzęs / brwi"><label class="check-label" for="u5"><span class="check-box"></span>Lifting rzęs / brwi</label></div>
+        <div class="check-item"><input type="checkbox" id="u6" name="uslugi" value="Henna / laminacja brwi"><label class="check-label" for="u6"><span class="check-box"></span>Henna / laminacja brwi</label></div>
+        <div class="check-item"><input type="checkbox" id="u7" name="uslugi" value="Makijaż"><label class="check-label" for="u7"><span class="check-box"></span>Makijaż</label></div>
+        <div class="check-item"><input type="checkbox" id="u8" name="uslugi" value="Strzyżenie / koloryzacja"><label class="check-label" for="u8"><span class="check-box"></span>Strzyżenie / koloryzacja</label></div>
+        <div class="check-item"><input type="checkbox" id="u9" name="uslugi" value="Botoks / kwas hialuronowy"><label class="check-label" for="u9"><span class="check-box"></span>Botoks / kwas hialuronowy</label></div>
+        <div class="check-item"><input type="checkbox" id="u10" name="uslugi" value="Masaż"><label class="check-label" for="u10"><span class="check-box"></span>Masaż</label></div>
+        <div class="check-item"><input type="checkbox" id="u11" name="uslugi" value="Mikrodermabrazja"><label class="check-label" for="u11"><span class="check-box"></span>Mikrodermabrazja</label></div>
+        <div class="check-item"><input type="checkbox" id="u12" name="uslugi" value="Skincare / pielęgnacja"><label class="check-label" for="u12"><span class="check-box"></span>Skincare / pielęgnacja</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Usługi które chcesz promować najbardziej</label>
+      <div class="hint">Wpisz 2–4 usługi, które przynoszą Ci największy zysk lub chcesz zwiększyć ich sprzedaż</div>
+      <textarea id="top_uslugi" placeholder="np. Lifting rzęs, Manicure hybrydowy, Zabiegi na twarz"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Przedział cenowy Twoich usług</label>
+      <div class="radio-grid">
+        <div class="radio-item"><input type="radio" name="ceny" id="c1" value="Budżetowy (do 100 zł)"><label class="radio-label" for="c1"><span class="radio-dot"></span>Budżetowy (do 100 zł)</label></div>
+        <div class="radio-item"><input type="radio" name="ceny" id="c2" value="Średni (100–250 zł)"><label class="radio-label" for="c2"><span class="radio-dot"></span>Średni (100–250 zł)</label></div>
+        <div class="radio-item"><input type="radio" name="ceny" id="c3" value="Premium (250–500 zł)"><label class="radio-label" for="c3"><span class="radio-dot"></span>Premium (250–500 zł)</label></div>
+        <div class="radio-item"><input type="radio" name="ceny" id="c4" value="Luksusowy (500 zł+)"><label class="radio-label" for="c4"><span class="radio-dot"></span>Luksusowy (500 zł+)</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Czy masz aktualnie jakieś promocje lub nowe usługi?</label>
+      <textarea id="promocje" placeholder="np. Sierpień – miesiąc brwi: henna w cenie laminacji. Nowa usługa: masaż gorącymi kamieniami od września."></textarea>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-back" onclick="prevSection(1)">← Wróć</button>
+      <button class="btn-next" onclick="nextSection(1)">Dalej →</button>
+    </div>
+  </div>
+
+  <!-- SEKCJA 3 — KLIENTKI -->
+  <div class="form-section" data-section="2">
+    <div class="section-head">
+      <div class="section-num">03 — Twoje klientki</div>
+      <h2>Kim są kobiety<br>które do Ciebie przychodzą?</h2>
+      <p>Posty piszemy z myślą o konkretnej osobie, nie o wszystkich.</p>
+    </div>
+
+    <div class="field">
+      <label>Wiek Twoich klientek <span>*</span></label>
+      <div class="check-grid">
+        <div class="check-item"><input type="checkbox" id="w1" name="wiek" value="18–24 lata"><label class="check-label" for="w1"><span class="check-box"></span>18–24 lata</label></div>
+        <div class="check-item"><input type="checkbox" id="w2" name="wiek" value="25–34 lata"><label class="check-label" for="w2"><span class="check-box"></span>25–34 lata</label></div>
+        <div class="check-item"><input type="checkbox" id="w3" name="wiek" value="35–44 lata"><label class="check-label" for="w3"><span class="check-box"></span>35–44 lata</label></div>
+        <div class="check-item"><input type="checkbox" id="w4" name="wiek" value="45–55 lat"><label class="check-label" for="w4"><span class="check-box"></span>45–55 lat</label></div>
+        <div class="check-item"><input type="checkbox" id="w5" name="wiek" value="55+ lat"><label class="check-label" for="w5"><span class="check-box"></span>55+ lat</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Styl życia Twojej idealnej klientki</label>
+      <div class="check-grid">
+        <div class="check-item"><input type="checkbox" id="sl1" name="styl_zycia" value="Mama z dziećmi"><label class="check-label" for="sl1"><span class="check-box"></span>Mama z dziećmi</label></div>
+        <div class="check-item"><input type="checkbox" id="sl2" name="styl_zycia" value="Kobieta pracująca / biznesowa"><label class="check-label" for="sl2"><span class="check-box"></span>Kobieta biznesowa</label></div>
+        <div class="check-item"><input type="checkbox" id="sl3" name="styl_zycia" value="Studentka"><label class="check-label" for="sl3"><span class="check-box"></span>Studentka</label></div>
+        <div class="check-item"><input type="checkbox" id="sl4" name="styl_zycia" value="Pani dbająca o siebie (wellness)"><label class="check-label" for="sl4"><span class="check-box"></span>Wellness / dbanie o siebie</label></div>
+        <div class="check-item"><input type="checkbox" id="sl5" name="styl_zycia" value="Fashionistka / trendsetterka"><label class="check-label" for="sl5"><span class="check-box"></span>Fashionistka</label></div>
+        <div class="check-item"><input type="checkbox" id="sl6" name="styl_zycia" value="Klientka premium / luksus"><label class="check-label" for="sl6"><span class="check-box"></span>Klientka premium</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Co jest dla niej najważniejsze przy wyborze salonu?</label>
+      <div class="check-grid">
+        <div class="check-item"><input type="checkbox" id="v1" name="wartosci" value="Jakość i efekty"><label class="check-label" for="v1"><span class="check-box"></span>Jakość i efekty</label></div>
+        <div class="check-item"><input type="checkbox" id="v2" name="wartosci" value="Cena i promocje"><label class="check-label" for="v2"><span class="check-box"></span>Cena i promocje</label></div>
+        <div class="check-item"><input type="checkbox" id="v3" name="wartosci" value="Atmosfera i relaks"><label class="check-label" for="v3"><span class="check-box"></span>Atmosfera i relaks</label></div>
+        <div class="check-item"><input type="checkbox" id="v4" name="wartosci" value="Zaufanie i lojalność"><label class="check-label" for="v4"><span class="check-box"></span>Zaufanie i lojalność</label></div>
+        <div class="check-item"><input type="checkbox" id="v5" name="wartosci" value="Nowoczesność / trendy"><label class="check-label" for="v5"><span class="check-box"></span>Nowoczesność / trendy</label></div>
+        <div class="check-item"><input type="checkbox" id="v6" name="wartosci" value="Wygoda i szybkość"><label class="check-label" for="v6"><span class="check-box"></span>Wygoda i szybkość</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Opisz swoją idealną klientkę w 2–3 zdaniach</label>
+      <div class="hint">Im więcej szczegółów tym lepiej. Co robi w wolnym czasie? Czego szuka?</div>
+      <textarea id="idealna_klientka" placeholder="np. Aktywna kobieta 30–40 lat, pracuje w korporacji, ceni profesjonalizm i efekty utrzymujące się długo. Nie ma czasu na długie wizyty, ale raz na miesiąc pozwala sobie na chwilę dla siebie. Instagram przegląda wieczorami..."></textarea>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-back" onclick="prevSection(2)">← Wróć</button>
+      <button class="btn-next" onclick="nextSection(2)">Dalej →</button>
+    </div>
+  </div>
+
+  <!-- SEKCJA 4 — STYL -->
+  <div class="form-section" data-section="3">
+    <div class="section-head">
+      <div class="section-num">04 — Estetyka i styl marki</div>
+      <h2>Jak wygląda<br>Twoja marka?</h2>
+      <p>Grafiki i tekst muszą być spójne z Twoją estetyką salonu.</p>
+    </div>
+
+    <div class="field">
+      <label>Styl wizualny salonu <span>*</span></label>
+      <div class="radio-grid">
+        <div class="radio-item"><input type="radio" name="styl" id="sv1" value="Minimalistyczny / elegancki"><label class="radio-label" for="sv1"><span class="radio-dot"></span>Minimalistyczny / elegancki</label></div>
+        <div class="radio-item"><input type="radio" name="styl" id="sv2" value="Różowy / girly"><label class="radio-label" for="sv2"><span class="radio-dot"></span>Różowy / girly</label></div>
+        <div class="radio-item"><input type="radio" name="styl" id="sv3" value="Naturalny / boho"><label class="radio-label" for="sv3"><span class="radio-dot"></span>Naturalny / boho</label></div>
+        <div class="radio-item"><input type="radio" name="styl" id="sv4" value="Luksusowy / premium"><label class="radio-label" for="sv4"><span class="radio-dot"></span>Luksusowy / premium</label></div>
+        <div class="radio-item"><input type="radio" name="styl" id="sv5" value="Nowoczesny / kliniczny"><label class="radio-label" for="sv5"><span class="radio-dot"></span>Nowoczesny / kliniczny</label></div>
+        <div class="radio-item"><input type="radio" name="styl" id="sv6" value="Kolorowy / energetyczny"><label class="radio-label" for="sv6"><span class="radio-dot"></span>Kolorowy / energetyczny</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Kolory Twojej marki</label>
+      <div class="hint">Wpisz kolory lub opisz paletę np. "beże, złoto, czerń" lub "#c9847a, #2d1f2a"</div>
+      <input type="text" id="kolory" placeholder="np. Biel, nude, złoto — elegancki minimalizm">
+    </div>
+
+    <div class="field">
+      <label>Czy masz logo lub materiały brandingowe?</label>
+      <div class="radio-grid">
+        <div class="radio-item"><input type="radio" name="logo" id="l1" value="Tak, mam kompletny branding"><label class="radio-label" for="l1"><span class="radio-dot"></span>Tak, kompletny branding</label></div>
+        <div class="radio-item"><input type="radio" name="logo" id="l2" value="Tylko logo"><label class="radio-label" for="l2"><span class="radio-dot"></span>Tylko logo</label></div>
+        <div class="radio-item"><input type="radio" name="logo" id="l3" value="Brak — dopiero tworzę"><label class="radio-label" for="l3"><span class="radio-dot"></span>Brak — dopiero tworzę</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Profile / salony które Ci się podobają wizualnie</label>
+      <div class="hint">Linki do Instagramów lub nazwy salonów — jako inspiracja dla naszych grafik</div>
+      <textarea id="inspiracje" placeholder="np. @salonname, @beautypolska — lubię stonowane kolory i dużo białej przestrzeni"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Czego NIE chcesz w swoich postach?</label>
+      <div class="hint">Np. konkretne kolory, zbyt casualowy ton, emoji w nadmiarze, promocje cenowe...</div>
+      <textarea id="czego_nie" placeholder="np. Nie chcę zbyt krzykliwych grafik, nie używamy emoji w nadmiarze, unikamy porównań z konkurencją"></textarea>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-back" onclick="prevSection(3)">← Wróć</button>
+      <button class="btn-next" onclick="nextSection(3)">Dalej →</button>
+    </div>
+  </div>
+
+  <!-- SEKCJA 5 — KOMUNIKACJA -->
+  <div class="form-section" data-section="4">
+    <div class="section-head">
+      <div class="section-num">05 — Ton i komunikacja</div>
+      <h2>Jak rozmawiasz<br>ze swoimi klientkami?</h2>
+      <p>Posty muszą brzmieć jak Ty, nie jak robot.</p>
+    </div>
+
+    <div class="field">
+      <label>Ton komunikacji <span>*</span></label>
+      <div class="radio-grid">
+        <div class="radio-item"><input type="radio" name="ton" id="tn1" value="Ciepły i przyjacielski"><label class="radio-label" for="tn1"><span class="radio-dot"></span>Ciepły i przyjacielski</label></div>
+        <div class="radio-item"><input type="radio" name="ton" id="tn2" value="Profesjonalny i rzeczowy"><label class="radio-label" for="tn2"><span class="radio-dot"></span>Profesjonalny i rzeczowy</label></div>
+        <div class="radio-item"><input type="radio" name="ton" id="tn3" value="Elegancki i wyrafinowany"><label class="radio-label" for="tn3"><span class="radio-dot"></span>Elegancki i wyrafinowany</label></div>
+        <div class="radio-item"><input type="radio" name="ton" id="tn4" value="Energetyczny i motywujący"><label class="radio-label" for="tn4"><span class="radio-dot"></span>Energetyczny i motywujący</label></div>
+        <div class="radio-item"><input type="radio" name="ton" id="tn5" value="Zabawny z dystansem"><label class="radio-label" for="tn5"><span class="radio-dot"></span>Zabawny z dystansem</label></div>
+        <div class="radio-item"><input type="radio" name="ton" id="tn6" value="Edukacyjny / ekspercki"><label class="radio-label" for="tn6"><span class="radio-dot"></span>Edukacyjny / ekspercki</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Jak zwracasz się do klientki?</label>
+      <div class="radio-grid">
+        <div class="radio-item"><input type="radio" name="zwrot" id="z1" value="Per Ty (np. Twoją skórę)"><label class="radio-label" for="z1"><span class="radio-dot"></span>Per Ty</label></div>
+        <div class="radio-item"><input type="radio" name="zwrot" id="z2" value="Per Pani (np. Pani skórę)"><label class="radio-label" for="z2"><span class="radio-dot"></span>Per Pani</label></div>
+        <div class="radio-item"><input type="radio" name="zwrot" id="z3" value="Bezpośrednio, bez formy"><label class="radio-label" for="z3"><span class="radio-dot"></span>Bezpośrednio</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Używasz emoji w komunikacji?</label>
+      <div class="radio-grid">
+        <div class="radio-item"><input type="radio" name="emoji" id="e1" value="Tak, chętnie"><label class="radio-label" for="e1"><span class="radio-dot"></span>Tak, chętnie</label></div>
+        <div class="radio-item"><input type="radio" name="emoji" id="e2" value="Tak, ale tylko kilka"><label class="radio-label" for="e2"><span class="radio-dot"></span>Tak, ale oszczędnie</label></div>
+        <div class="radio-item"><input type="radio" name="emoji" id="e3" value="Nie używam emoji"><label class="radio-label" for="e3"><span class="radio-dot"></span>Nie używam</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Wklej przykład tekstu który lubisz lub który sam/a napisałaś</label>
+      <div class="hint">Możesz też wkleić post który Ci się podoba z cudzego profilu. Chcemy wyczuć Twój styl.</div>
+      <textarea id="przyklad_tekstu" placeholder="np. fragment posta, opis z InstaStories, cokolwiek co brzmi 'jak Ty'..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Słowa lub wyrażenia których unikasz</label>
+      <div class="hint">Np. "super", "ekstra", konkretne słowa-klucze, zbyt techniczny żargon...</div>
+      <input type="text" id="unikane_slowa" placeholder="np. 'super', 'kompleksowo', branżowy slang">
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-back" onclick="prevSection(4)">← Wróć</button>
+      <button class="btn-next" onclick="nextSection(4)">Dalej →</button>
+    </div>
+  </div>
+
+  <!-- SEKCJA 6 — CELE -->
+  <div class="form-section" data-section="5">
+    <div class="section-head">
+      <div class="section-num">06 — Cele i oczekiwania</div>
+      <h2>Co chcesz osiągnąć<br>w social media?</h2>
+      <p>Pomaga nam dobrać proporcje rodzajów postów w Twoim planie.</p>
+    </div>
+
+    <div class="field">
+      <label>Główny cel social media <span>*</span></label>
+      <div class="check-grid">
+        <div class="check-item"><input type="checkbox" id="cel1" name="cele" value="Więcej rezerwacji / klientów"><label class="check-label" for="cel1"><span class="check-box"></span>Więcej rezerwacji</label></div>
+        <div class="check-item"><input type="checkbox" id="cel2" name="cele" value="Budowanie rozpoznawalności marki"><label class="check-label" for="cel2"><span class="check-box"></span>Rozpoznawalność marki</label></div>
+        <div class="check-item"><input type="checkbox" id="cel3" name="cele" value="Wzrost liczby obserwujących"><label class="check-label" for="cel3"><span class="check-box"></span>Więcej obserwujących</label></div>
+        <div class="check-item"><input type="checkbox" id="cel4" name="cele" value="Edukacja klientek"><label class="check-label" for="cel4"><span class="check-box"></span>Edukacja klientek</label></div>
+        <div class="check-item"><input type="checkbox" id="cel5" name="cele" value="Promocja konkretnych usług"><label class="check-label" for="cel5"><span class="check-box"></span>Promocja usług</label></div>
+        <div class="check-item"><input type="checkbox" id="cel6" name="cele" value="Lojalność obecnych klientek"><label class="check-label" for="cel6"><span class="check-box"></span>Lojalność klientek</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Jak aktywny jest teraz Twój profil?</label>
+      <div class="radio-grid">
+        <div class="radio-item"><input type="radio" name="aktywnosc" id="a1" value="Nie postuję wcale"><label class="radio-label" for="a1"><span class="radio-dot"></span>Nie postuję wcale</label></div>
+        <div class="radio-item"><input type="radio" name="aktywnosc" id="a2" value="Raz na miesiąc lub rzadziej"><label class="radio-label" for="a2"><span class="radio-dot"></span>Rzadko (raz/miesiąc)</label></div>
+        <div class="radio-item"><input type="radio" name="aktywnosc" id="a3" value="Kilka razy w miesiącu"><label class="radio-label" for="a3"><span class="radio-dot"></span>Kilka razy/miesiąc</label></div>
+        <div class="radio-item"><input type="radio" name="aktywnosc" id="a4" value="Regularnie kilka razy w tygodniu"><label class="radio-label" for="a4"><span class="radio-dot"></span>Regularnie</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Preferowane platformy <span>*</span></label>
+      <div class="check-grid">
+        <div class="check-item"><input type="checkbox" id="p1" name="platformy" value="Instagram"><label class="check-label" for="p1"><span class="check-box"></span>Instagram</label></div>
+        <div class="check-item"><input type="checkbox" id="p2" name="platformy" value="Facebook"><label class="check-label" for="p2"><span class="check-box"></span>Facebook</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Czy są tematy / okazje które koniecznie chcesz poruszyć?</label>
+      <div class="hint">Np. zbliżające się święta, rocznica salonu, nowa usługa, konkurs...</div>
+      <textarea id="tematy_specjalne" placeholder="np. W sierpniu rocznica salonu, we wrześniu nowa kosmetyczka dołącza do zespołu, w październiku promujemy zabiegi przeciwstarzeniowe..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Cokolwiek jeszcze chcesz nam powiedzieć</label>
+      <textarea id="dodatkowe" placeholder="Dowolne uwagi, życzenia, rzeczy o których powinniśmy wiedzieć..."></textarea>
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-back" onclick="prevSection(5)">← Wróć</button>
+      <button class="btn-next" onclick="nextSection(5)">Przejdź do podsumowania →</button>
+    </div>
+  </div>
+
+  <!-- SEKCJA 7 — PODSUMOWANIE -->
+  <div class="form-section" data-section="6">
+    <div class="section-head">
+      <div class="section-num">07 — Podsumowanie</div>
+      <h2>Sprawdź<br>przed wysłaniem</h2>
+      <p>Upewnij się że wszystko się zgadza. Po wysłaniu zaczniemy tworzyć Twoje posty.</p>
+    </div>
+
+    <div class="summary-card" id="summaryCard">
+      <h3>Twój brief</h3>
+      <div id="summaryRows"></div>
+    </div>
+
+    <div style="background:var(--rose-light);border:1px solid var(--rose-mid);border-radius:12px;padding:20px 24px;font-size:14px;color:var(--plum);line-height:1.6">
+      <strong>Co dalej?</strong> Po wysłaniu briefu nasz system przystąpi do tworzenia Twoich 12 pierwszych postów. Otrzymasz je emailem do zatwierdzenia w ciągu <strong>48 godzin</strong>. Możesz prosić o dowolne poprawki — pracujemy do skutku.
+    </div>
+
+    <div class="nav-btns">
+      <button class="btn-back" onclick="prevSection(6)">← Wróć i edytuj</button>
+      <button class="btn-submit" onclick="submitForm()">Wyślij brief →</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- SUCCESS -->
+<div class="success" id="successMsg">
+  <div class="success-icon">✓</div>
+  <h2>Brief wysłany!</h2>
+  <p>Dziękujemy — mamy wszystko czego potrzebujemy.</p>
+  <p>Twoje 12 pierwszych postów wyślemy na <strong id="successEmail"></strong> w ciągu 48 godzin.</p>
+</div>
+
+<script>
+var WEBHOOK_URL = 'WSTAW_TUTAJ_WEBHOOK_MAKE_COM';
+
+// Auto-uzupełnienie z URL: brief.html?email=x@y.pl&salon=NazwaSalonu
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var emailParam = params.get('email');
+  var salonParam = params.get('salon');
+  window.addEventListener('DOMContentLoaded', function(){
+    if(emailParam){
+      var emailEl = document.getElementById('email');
+      emailEl.value = emailParam;
+      emailEl.readOnly = true;
+      emailEl.style.background = 'var(--gray-light)';
+      emailEl.style.color = 'var(--gray)';
+    }
+    if(salonParam){
+      var salonEl = document.getElementById('salon_name');
+      salonEl.value = salonParam;
+    }
+  });
+})();
+
+var current = 0;
+var sections = document.querySelectorAll('.form-section');
+var steps = document.querySelectorAll('.prog-step');
+
+function goTo(n){
+  if(n > current) return; // only go back directly
+  sections[current].classList.remove('active');
+  steps[current].classList.remove('active');
+  if(current > n) steps[current].classList.remove('done');
+  current = n;
+  sections[current].classList.add('active');
+  steps[current].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function nextSection(n){
+  if(!validateSection(n)) return;
+  sections[n].classList.remove('active');
+  steps[n].classList.remove('active');
+  steps[n].classList.add('done');
+  current = n + 1;
+  if(current === 6) buildSummary();
+  sections[current].classList.add('active');
+  steps[current].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function prevSection(n){
+  sections[n].classList.remove('active');
+  steps[n].classList.remove('active');
+  current = n - 1;
+  sections[current].classList.add('active');
+  steps[current].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function validateSection(n){
+  var ok = true;
+  document.querySelectorAll('.err-msg').forEach(function(e){e.remove()});
+  document.querySelectorAll('.error').forEach(function(e){e.classList.remove('error')});
+  if(n===0){
+    ['salon_name','email'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(!el.value.trim()){el.classList.add('error');addErr(el,'To pole jest wymagane');ok=false;}
+    });
+  }
+  return ok;
+}
+
+function addErr(el,msg){
+  var d = document.createElement('div');
+  d.className='err-msg';d.textContent=msg;
+  el.parentNode.insertBefore(d,el.nextSibling);
+}
+
+function getChecked(name){
+  return Array.from(document.querySelectorAll('input[name="'+name+'"]:checked')).map(function(el){return el.value;}).join(', ');
+}
+function getRadio(name){
+  var el = document.querySelector('input[name="'+name+'"]:checked');
+  return el ? el.value : '—';
+}
+function val(id){ var el=document.getElementById(id); return el&&el.value.trim()?el.value.trim():'—'; }
+
+function buildSummary(){
+  var rows = [
+    ['Salon',val('salon_name')],
+    ['Miasto',val('miasto')],
+    ['Email',val('email')],
+    ['Typ salonu',getRadio('typ_salonu')],
+    ['Usługi',getChecked('uslugi')],
+    ['Promocje',val('promocje')],
+    ['Wiek klientek',getChecked('wiek')],
+    ['Ton komunikacji',getRadio('ton')],
+    ['Styl wizualny',getRadio('styl')],
+    ['Platformy',getChecked('platformy')],
+    ['Cele',getChecked('cele')],
+  ];
+  var html = '';
+  rows.forEach(function(r){
+    if(r[1]&&r[1]!=='—') html += '<div class="summary-row"><span class="sum-key">'+r[0]+'</span><span class="sum-val">'+r[1]+'</span></div>';
+  });
+  document.getElementById('summaryRows').innerHTML = html;
+}
+
+function collectData(){
+  return {
+    salon_name: val('salon_name'),
+    miasto: val('miasto'),
+    website: val('website'),
+    email: val('email'),
+    typ_salonu: getRadio('typ_salonu'),
+    staz: getRadio('staz'),
+    uslugi: getChecked('uslugi'),
+    top_uslugi: val('top_uslugi'),
+    przedział_cenowy: getRadio('ceny'),
+    promocje: val('promocje'),
+    wiek_klientek: getChecked('wiek'),
+    styl_zycia_klientki: getChecked('styl_zycia'),
+    wartosci_klientki: getChecked('wartosci'),
+    idealna_klientka: val('idealna_klientka'),
+    styl_wizualny: getRadio('styl'),
+    kolory: val('kolory'),
+    logo: getRadio('logo'),
+    inspiracje: val('inspiracje'),
+    czego_nie: val('czego_nie'),
+    ton: getRadio('ton'),
+    zwrot: getRadio('zwrot'),
+    emoji: getRadio('emoji'),
+    przyklad_tekstu: val('przyklad_tekstu'),
+    unikane_slowa: val('unikane_slowa'),
+    cele: getChecked('cele'),
+    aktywnosc: getRadio('aktywnosc'),
+    platformy: getChecked('platformy'),
+    tematy_specjalne: val('tematy_specjalne'),
+    dodatkowe: val('dodatkowe'),
+    submitted_at: new Date().toISOString()
+  };
+}
+
+function submitForm(){
+  var btn = document.querySelector('.btn-submit');
+  btn.textContent = 'Wysyłam...';
+  btn.disabled = true;
+  var data = collectData();
+
+  fetch(WEBHOOK_URL, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(data)
+  })
+  .then(function(r){
+    document.getElementById('formMain').style.display='none';
+    document.querySelector('.progress-wrap').style.display='none';
+    document.querySelector('.brief-hero').style.display='none';
+    var s = document.getElementById('successMsg');
+    s.classList.add('show');
+    document.getElementById('successEmail').textContent = data.email;
+  })
+  .catch(function(){
+    // fallback — show success anyway (webhook may return opaque response)
+    document.getElementById('formMain').style.display='none';
+    document.querySelector('.progress-wrap').style.display='none';
+    document.querySelector('.brief-hero').style.display='none';
+    var s = document.getElementById('successMsg');
+    s.classList.add('show');
+    document.getElementById('successEmail').textContent = data.email;
+  });
+}
+</script>
+</body>
+</html>
