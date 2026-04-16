@@ -552,11 +552,12 @@ input.error,select.error,textarea.error{border-color:#e24b4a;box-shadow:0 0 0 3p
 <script>
 var WEBHOOK_URL = 'WSTAW_TUTAJ_WEBHOOK_MAKE_COM';
 
-// Auto-uzupełnienie z URL: brief.html?email=x@y.pl&salon=NazwaSalonu
+// Auto-uzupełnienie z URL: brief.html?email=x@y.pl&salon=NazwaSalonu&record_id=recXXX
+var _urlParams = new URLSearchParams(window.location.search);
+var _recordId = _urlParams.get('record_id') || '';
 (function(){
-  var params = new URLSearchParams(window.location.search);
-  var emailParam = params.get('email');
-  var salonParam = params.get('salon');
+  var emailParam = _urlParams.get('email');
+  var salonParam = _urlParams.get('salon');
   window.addEventListener('DOMContentLoaded', function(){
     if(emailParam){
       var emailEl = document.getElementById('email');
@@ -567,7 +568,7 @@ var WEBHOOK_URL = 'WSTAW_TUTAJ_WEBHOOK_MAKE_COM';
     }
     if(salonParam){
       var salonEl = document.getElementById('salon_name');
-      salonEl.value = salonParam;
+      salonEl.value = decodeURIComponent(salonParam);
     }
   });
 })();
@@ -688,7 +689,8 @@ function collectData(){
     platformy: getChecked('platformy'),
     tematy_specjalne: val('tematy_specjalne'),
     dodatkowe: val('dodatkowe'),
-    submitted_at: new Date().toISOString()
+    submitted_at: new Date().toISOString(),
+    record_id: _recordId
   };
 }
 
