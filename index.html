@@ -224,14 +224,16 @@ input.error,select.error,textarea.error{border-color:#e24b4a;box-shadow:0 0 0 3p
 
     <div class="field">
       <label>Typ salonu <span>*</span></label>
-      <div class="radio-grid">
-        <div class="radio-item"><input type="radio" name="typ_salonu" id="t1" value="Salon kosmetyczny"><label class="radio-label" for="t1"><span class="radio-dot"></span>Salon kosmetyczny</label></div>
-        <div class="radio-item"><input type="radio" name="typ_salonu" id="t2" value="Fryzjer"><label class="radio-label" for="t2"><span class="radio-dot"></span>Fryzjer</label></div>
-        <div class="radio-item"><input type="radio" name="typ_salonu" id="t3" value="Salon paznokci"><label class="radio-label" for="t3"><span class="radio-dot"></span>Salon paznokci</label></div>
-        <div class="radio-item"><input type="radio" name="typ_salonu" id="t4" value="Medycyna estetyczna"><label class="radio-label" for="t4"><span class="radio-dot"></span>Medycyna estetyczna</label></div>
-        <div class="radio-item"><input type="radio" name="typ_salonu" id="t5" value="SPA / masaż"><label class="radio-label" for="t5"><span class="radio-dot"></span>SPA / masaż</label></div>
-        <div class="radio-item"><input type="radio" name="typ_salonu" id="t6" value="Studio urody (kompleks)"><label class="radio-label" for="t6"><span class="radio-dot"></span>Studio urody (kompleks)</label></div>
-        <div class="radio-item"><input type="radio" name="typ_salonu" id="t7" value="Inne"><label class="radio-label" for="t7"><span class="radio-dot"></span>Inne</label></div>
+      <div class="hint">Możesz zaznaczyć kilka</div>
+      <div class="check-grid">
+        <div class="check-item"><input type="checkbox" id="t1" name="typ_salonu" value="Salon kosmetyczny"><label class="check-label" for="t1"><span class="check-box"></span>Salon kosmetyczny</label></div>
+        <div class="check-item"><input type="checkbox" id="t2" name="typ_salonu" value="Fryzjer"><label class="check-label" for="t2"><span class="check-box"></span>Fryzjer</label></div>
+        <div class="check-item"><input type="checkbox" id="t3" name="typ_salonu" value="Salon paznokci"><label class="check-label" for="t3"><span class="check-box"></span>Salon paznokci</label></div>
+        <div class="check-item"><input type="checkbox" id="t4" name="typ_salonu" value="Medycyna estetyczna"><label class="check-label" for="t4"><span class="check-box"></span>Medycyna estetyczna</label></div>
+        <div class="check-item"><input type="checkbox" id="t5" name="typ_salonu" value="SPA / masaż"><label class="check-label" for="t5"><span class="check-box"></span>SPA / masaż</label></div>
+        <div class="check-item"><input type="checkbox" id="t6" name="typ_salonu" value="Studio urody (kompleks)"><label class="check-label" for="t6"><span class="check-box"></span>Studio urody (kompleks)</label></div>
+        <div class="check-item"><input type="checkbox" id="t7" name="typ_salonu" value="Salon rzęs / brwi"><label class="check-label" for="t7"><span class="check-box"></span>Salon rzęs / brwi</label></div>
+        <div class="check-item"><input type="checkbox" id="t8" name="typ_salonu" value="Inne"><label class="check-label" for="t8"><span class="check-box"></span>Inne</label></div>
       </div>
     </div>
 
@@ -282,6 +284,31 @@ input.error,select.error,textarea.error{border-color:#e24b4a;box-shadow:0 0 0 3p
       <label>Usługi które chcesz promować najbardziej</label>
       <div class="hint">Wpisz 2–4 usługi, które przynoszą Ci największy zysk lub chcesz zwiększyć ich sprzedaż</div>
       <textarea id="top_uslugi" placeholder="np. Lifting rzęs, Manicure hybrydowy, Zabiegi na twarz"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Marki produktów na których pracujesz</label>
+      <div class="hint">Wypełnij tylko te kategorie które dotyczą Twojego salonu</div>
+
+      <div style="margin-bottom:14px">
+        <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--rose);margin-bottom:6px">Lakiery i produkty do paznokci</div>
+        <input type="text" id="marki_paznokcie" placeholder="np. OPI, Semilac, Indigo, NeoNail, Halo, ORLY...">
+      </div>
+
+      <div style="margin-bottom:14px">
+        <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--rose);margin-bottom:6px">Kosmetyki do włosów</div>
+        <input type="text" id="marki_wlosy" placeholder="np. Wella, Schwarzkopf, Redken, Olaplex, Kerastase...">
+      </div>
+
+      <div style="margin-bottom:14px">
+        <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--rose);margin-bottom:6px">Kosmetyki do makijażu</div>
+        <input type="text" id="marki_makeup" placeholder="np. MAC, Charlotte Tilbury, NYX, Huda Beauty, Inglot...">
+      </div>
+
+      <div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--rose);margin-bottom:6px">Preparaty do medycyny estetycznej</div>
+        <input type="text" id="marki_medycyna" placeholder="np. Juvederm, Restylane, Botox (Allergan), Sculptra, Radiesse...">
+      </div>
     </div>
 
     <div class="field">
@@ -381,8 +408,42 @@ input.error,select.error,textarea.error{border-color:#e24b4a;box-shadow:0 0 0 3p
     </div>
 
     <div class="field">
-      <label>Kolory Twojej marki</label>
-      <div class="hint">Wpisz kolory lub opisz paletę np. "beże, złoto, czerń" lub "#c9847a, #2d1f2a"</div>
+      <label>Preferowane kolory w grafikach</label>
+      <div class="hint">Zaznacz kolory które pasują do Twojej marki (możesz zaznaczyć kilka)</div>
+      <div class="check-grid">
+        <div class="check-item"><input type="checkbox" id="k1" name="kolory_wybor" value="Biel / kremowy"><label class="check-label" for="k1"><span class="check-box"></span>Biel / kremowy</label></div>
+        <div class="check-item"><input type="checkbox" id="k2" name="kolory_wybor" value="Beż / nude"><label class="check-label" for="k2"><span class="check-box"></span>Beż / nude</label></div>
+        <div class="check-item"><input type="checkbox" id="k3" name="kolory_wybor" value="Róż / pudrowy"><label class="check-label" for="k3"><span class="check-box"></span>Róż / pudrowy</label></div>
+        <div class="check-item"><input type="checkbox" id="k4" name="kolory_wybor" value="Złoto"><label class="check-label" for="k4"><span class="check-box"></span>Złoto</label></div>
+        <div class="check-item"><input type="checkbox" id="k5" name="kolory_wybor" value="Srebro"><label class="check-label" for="k5"><span class="check-box"></span>Srebro</label></div>
+        <div class="check-item"><input type="checkbox" id="k6" name="kolory_wybor" value="Czerń"><label class="check-label" for="k6"><span class="check-box"></span>Czerń</label></div>
+        <div class="check-item"><input type="checkbox" id="k7" name="kolory_wybor" value="Fiolet / lilia"><label class="check-label" for="k7"><span class="check-box"></span>Fiolet / lilia</label></div>
+        <div class="check-item"><input type="checkbox" id="k8" name="kolory_wybor" value="Zieleń / szałwia"><label class="check-label" for="k8"><span class="check-box"></span>Zieleń / szałwia</label></div>
+        <div class="check-item"><input type="checkbox" id="k9" name="kolory_wybor" value="Brąz / czekolada"><label class="check-label" for="k9"><span class="check-box"></span>Brąz / czekolada</label></div>
+        <div class="check-item"><input type="checkbox" id="k10" name="kolory_wybor" value="Błękit / niebieski"><label class="check-label" for="k10"><span class="check-box"></span>Błękit / niebieski</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Preferowane faktury i tła w grafikach</label>
+      <div class="hint">Zaznacz które pasują do klimatu Twojego salonu</div>
+      <div class="check-grid">
+        <div class="check-item"><input type="checkbox" id="f1" name="faktury" value="Marmur (biały / szary)"><label class="check-label" for="f1"><span class="check-box"></span>Marmur</label></div>
+        <div class="check-item"><input type="checkbox" id="f2" name="faktury" value="Beton / cement"><label class="check-label" for="f2"><span class="check-box"></span>Beton / cement</label></div>
+        <div class="check-item"><input type="checkbox" id="f3" name="faktury" value="Jasne drewno"><label class="check-label" for="f3"><span class="check-box"></span>Jasne drewno</label></div>
+        <div class="check-item"><input type="checkbox" id="f4" name="faktury" value="Ciemne drewno"><label class="check-label" for="f4"><span class="check-box"></span>Ciemne drewno</label></div>
+        <div class="check-item"><input type="checkbox" id="f5" name="faktury" value="Tkanina / len / bawełna"><label class="check-label" for="f5"><span class="check-box"></span>Tkanina / len</label></div>
+        <div class="check-item"><input type="checkbox" id="f6" name="faktury" value="Matowe szkło / frosted"><label class="check-label" for="f6"><span class="check-box"></span>Matowe szkło</label></div>
+        <div class="check-item"><input type="checkbox" id="f7" name="faktury" value="Jedwab / satyna"><label class="check-label" for="f7"><span class="check-box"></span>Jedwab / satyna</label></div>
+        <div class="check-item"><input type="checkbox" id="f8" name="faktury" value="Czyste białe tło"><label class="check-label" for="f8"><span class="check-box"></span>Czyste białe tło</label></div>
+        <div class="check-item"><input type="checkbox" id="f9" name="faktury" value="Naturalne rośliny / kwiaty"><label class="check-label" for="f9"><span class="check-box"></span>Rośliny / kwiaty</label></div>
+        <div class="check-item"><input type="checkbox" id="f10" name="faktury" value="Złote / srebrne akcenty metaliczne"><label class="check-label" for="f10"><span class="check-box"></span>Metaliczne akcenty</label></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Kolory marki (własny opis)</label>
+      <div class="hint">Opcjonalnie: wpisz dokładne kolory lub hex np. "#c9847a, #2d1f2a"</div>
       <input type="text" id="kolory" placeholder="np. Biel, nude, złoto — elegancki minimalizm">
     </div>
 
@@ -650,12 +711,14 @@ function buildSummary(){
     ['Salon',val('salon_name')],
     ['Miasto',val('miasto')],
     ['Email',val('email')],
-    ['Typ salonu',getRadio('typ_salonu')],
+    ['Typ salonu',getChecked('typ_salonu')],
     ['Usługi',getChecked('uslugi')],
     ['Promocje',val('promocje')],
     ['Wiek klientek',getChecked('wiek')],
     ['Ton komunikacji',getRadio('ton')],
     ['Styl wizualny',getRadio('styl')],
+    ['Kolory',getChecked('kolory_wybor')],
+    ['Faktury',getChecked('faktury')],
     ['Platformy',getChecked('platformy')],
     ['Cele',getChecked('cele')],
   ];
@@ -672,7 +735,7 @@ function collectData(){
     miasto: val('miasto'),
     website: val('website'),
     email: val('email'),
-    typ_salonu: getRadio('typ_salonu'),
+    typ_salonu: getChecked('typ_salonu'),
     staz: getRadio('staz'),
     uslugi: getChecked('uslugi'),
     top_uslugi: val('top_uslugi'),
@@ -683,7 +746,13 @@ function collectData(){
     wartosci_klientki: getChecked('wartosci'),
     idealna_klientka: val('idealna_klientka'),
     styl_wizualny: getRadio('styl'),
+    kolory_wybor: getChecked('kolory_wybor'),
+    faktury: getChecked('faktury'),
     kolory: val('kolory'),
+    marki_paznokcie: val('marki_paznokcie'),
+    marki_wlosy: val('marki_wlosy'),
+    marki_makeup: val('marki_makeup'),
+    marki_medycyna: val('marki_medycyna'),
     logo: getRadio('logo'),
     inspiracje: val('inspiracje'),
     czego_nie: val('czego_nie'),
