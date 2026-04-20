@@ -147,6 +147,18 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;heigh
 .success h2{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;margin-bottom:12px}
 .success p{font-size:15px;color:var(--gray);line-height:1.7;max-width:420px;margin:0 auto 8px}
 
+/* UPSELL CARD */
+.upsell-card{max-width:480px;margin:40px auto 0;border-radius:20px;overflow:hidden;box-shadow:0 8px 48px rgba(201,132,122,.25);text-align:left}
+.upsell-header{background:linear-gradient(135deg,var(--rose),var(--plum-light));padding:20px 28px;text-align:center;color:var(--cream)}
+.upsell-header.expired{background:var(--gray);opacity:.6}
+.upsell-countdown{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:300;letter-spacing:.05em;color:var(--cream)}
+.upsell-body{background:var(--white);padding:28px 32px}
+.upsell-cta{display:block;width:100%;padding:16px;background:linear-gradient(135deg,var(--rose),#9d5f58);color:var(--cream);text-decoration:none;border-radius:100px;font-size:14px;letter-spacing:.1em;text-transform:uppercase;font-weight:500;text-align:center;transition:all .3s}
+.upsell-cta:hover{opacity:.9;transform:translateY(-1px);box-shadow:0 8px 24px rgba(201,132,122,.35)}
+.upsell-feature{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--rose-light);font-size:13px;color:var(--plum)}
+.upsell-feature:last-child{border:none}
+.upsell-check{color:var(--rose);font-weight:700;flex-shrink:0}
+
 /* REQUIRED ERROR */
 input.error,select.error,textarea.error{border-color:#e24b4a;box-shadow:0 0 0 3px rgba(226,75,74,.08)}
 .err-msg{font-size:12px;color:#e24b4a;margin-top:4px}
@@ -616,6 +628,38 @@ input.error,select.error,textarea.error{border-color:#e24b4a;box-shadow:0 0 0 3p
   <h2>Brief wysłany!</h2>
   <p>Dziękujemy — mamy wszystko czego potrzebujemy.</p>
   <p>Twoje 12 pierwszych postów wyślemy na <strong id="successEmail"></strong> w ciągu 48 godzin.</p>
+
+  <!-- UPSELL PIPELINE 3 -->
+  <div class="upsell-card">
+    <div class="upsell-header" id="upsellHeader">
+      <div id="upsellActive">
+        <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.75;margin-bottom:6px">Oferta ograniczona czasowo</div>
+        <div style="font-size:13px;opacity:.85;margin-bottom:4px">Zostało:</div>
+        <div class="upsell-countdown" id="upsellTimer">15:00</div>
+      </div>
+      <div id="upsellExpired" style="display:none;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:600">Oferta wygasła</div>
+    </div>
+    <div class="upsell-body">
+      <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--rose);font-weight:700;margin-bottom:10px">Tylko teraz · jednorazowo</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--plum);margin-bottom:16px;line-height:1.3">
+        Dodaj do pakietu <em style="color:var(--rose);font-style:italic">12 szablonów Stories</em> i <em style="color:var(--rose);font-style:italic">12 okładek postów</em>
+      </div>
+      <div class="upsell-feature"><span class="upsell-check">✓</span> 12 gotowych szablonów Instagram Stories</div>
+      <div class="upsell-feature"><span class="upsell-check">✓</span> 12 okładek postów dopasowanych do Twojego salonu</div>
+      <div class="upsell-feature"><span class="upsell-check">✓</span> Spójny styl wizualny z Twoją marką</div>
+      <div class="upsell-feature"><span class="upsell-check">✓</span> Gotowe do pobrania w ciągu 24h</div>
+      <div style="display:flex;align-items:baseline;justify-content:center;gap:10px;margin:20px 0">
+        <span style="font-size:16px;color:var(--gray);text-decoration:line-through">49,99 zł</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:var(--plum)">19,99 zł</span>
+      </div>
+      <div id="upsellCtaWrap">
+        <a href="https://buy.stripe.com/test_bJe8wIf5T2Maaj69yd8ww02" class="upsell-cta">Tak, chcę szablony za 19,99 zł →</a>
+      </div>
+      <div id="upsellExpiredMsg" style="display:none;text-align:center;font-size:13px;color:var(--gray)">Ta oferta już nie obowiązuje.</div>
+      <p style="text-align:center;font-size:12px;color:var(--gray);margin-top:12px">Płatność jednorazowa · bez subskrypcji</p>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -771,6 +815,36 @@ function collectData(){
   };
 }
 
+function showSuccess(email){
+  document.getElementById('formMain').style.display='none';
+  document.querySelector('.progress-wrap').style.display='none';
+  document.querySelector('.brief-hero').style.display='none';
+  var s = document.getElementById('successMsg');
+  s.classList.add('show');
+  document.getElementById('successEmail').textContent = email;
+  startUpsellCountdown();
+}
+
+function startUpsellCountdown(){
+  var total = 15 * 60;
+  var timer = document.getElementById('upsellTimer');
+  var interval = setInterval(function(){
+    total--;
+    if(total <= 0){
+      clearInterval(interval);
+      document.getElementById('upsellActive').style.display = 'none';
+      document.getElementById('upsellExpired').style.display = 'block';
+      document.getElementById('upsellHeader').classList.add('expired');
+      document.getElementById('upsellCtaWrap').style.display = 'none';
+      document.getElementById('upsellExpiredMsg').style.display = 'block';
+      return;
+    }
+    var m = String(Math.floor(total/60)).padStart(2,'0');
+    var s = String(total%60).padStart(2,'0');
+    timer.textContent = m+':'+s;
+  }, 1000);
+}
+
 function submitForm(){
   var btn = document.querySelector('.btn-submit');
   btn.textContent = 'Wysyłam...';
@@ -782,23 +856,8 @@ function submitForm(){
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify(data)
   })
-  .then(function(r){
-    document.getElementById('formMain').style.display='none';
-    document.querySelector('.progress-wrap').style.display='none';
-    document.querySelector('.brief-hero').style.display='none';
-    var s = document.getElementById('successMsg');
-    s.classList.add('show');
-    document.getElementById('successEmail').textContent = data.email;
-  })
-  .catch(function(){
-    // fallback — show success anyway (webhook may return opaque response)
-    document.getElementById('formMain').style.display='none';
-    document.querySelector('.progress-wrap').style.display='none';
-    document.querySelector('.brief-hero').style.display='none';
-    var s = document.getElementById('successMsg');
-    s.classList.add('show');
-    document.getElementById('successEmail').textContent = data.email;
-  });
+  .then(function(){ showSuccess(data.email); })
+  .catch(function(){ showSuccess(data.email); }); // fallback — show success anyway
 }
 </script>
 </body>
